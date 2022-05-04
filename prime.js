@@ -10,23 +10,12 @@ const input = async (name) => {
     return string
 }
 
-let a
-// let b
-
-const input_A = async () => {
-    a = await input('数値1>');
-}    
-// const input_B = async () => {
-//     b = await input('数値1>');
-// }        
-async function main() {
-    await input_A();
-    // await input_B();
-}
 
 (async () => {
-    await main();
+    let a = Number(await input('数値1>'));
+    let b = Number(await input('数値2>'));
+  
+    console.log(a);
+    console.log(b);
+    console.log(a + b);
   })();
-
-console.log(a);
-// console.log(b);
