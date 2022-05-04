@@ -1,48 +1,20 @@
-const readline = require('readline');
+const readline = require('readline/promises');
 
-/**
- * メイン処理
- */
-const main = async () => {
-  for (;;) {
-    const answer = await prompt('エリクサーちょうだい！');
-    if (['あげる', 'はい', 'どうぞ'].includes(answer)) {
-      console.log('ありがとう！^_^');
-      break;
-    }
-    else if (['あげない', 'だめ', 'ダメ', '駄目'].includes(answer)) {
-      console.log('死ね！');
-    }
-    console.log('');  // 改行
-  }
-};
-
-/**
- * ユーザーに値を入力させる
- */
-const prompt = async (msg) => {
-  console.log(msg);
-  const answer = await question('> ');
-  return answer.trim();
-};
-
-/**
- * 標準入力を取得する
- */
-const question = (question) => {
-  const readlineInterface = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-  return new Promise((resolve) => {
-    readlineInterface.question(question, (answer) => {
-      resolve(answer);
-      readlineInterface.close();
+const input = async (name) => {
+    const readInterface = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
     });
-  });
-};
+    let string = await readInterface.question(name)
+    readInterface.close();
+    return string
+}
 
-// 起動
 (async () => {
-  await main();
-})();
+    let a = Number(await input('数値1>'));
+    let b = Number(await input('数値2>'));
+  
+    console.log(a);
+    console.log(b);
+    console.log(a + b);
+  })();

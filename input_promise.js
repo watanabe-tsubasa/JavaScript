@@ -1,16 +1,17 @@
-const readline = require('readline/promises');
-
-const input = async (name) => {
+const readline = require('readline');
+ 
+const input = prompt =>{
     const readInterface = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
     });
-    let string = await readInterface.question(name)
-    readInterface.close();
-    return string
-}
-
-
+    return new Promise( resolive =>readInterface.question(prompt,
+        input=>{
+            readInterface.close();
+            resolive(input);
+        }));
+};
+ 
 (async () => {
     let a = Number(await input('数値1>'));
     let b = Number(await input('数値2>'));
