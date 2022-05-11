@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+
+  
+  <title>何の役にも立たないプロトタイプ | GWアドベントカレンダー</title>
+
+    <meta name="description" content="楽しいだけで意味などない実装カモン！">
+    <meta property="og:description" content="楽しいだけで意味などない実装カモン！">
+    <meta property="og:title" content="何の役にも立たないプロトタイプ | GWアドベントカレンダー">
+  <meta property="og:url"         content="https://gw-advent.9wick.com/calendars/2022/122">
+  <meta name="twitter:card"       content="summary">
+  <meta name="twitter:site"       content="@AdventGw" />
+  <meta property="og:image"       content="https://gw-advent.9wick.com/images/gw_advent.png">
+  <meta property="fb:app_id" content="1312402095583179">
+
+
+  <meta name="msapplication-square70x70logo" content="/site-tile-70x70.png">
+  <meta name="msapplication-square150x150logo" content="/site-tile-150x150.png">
+  <meta name="msapplication-wide310x150logo" content="/site-tile-310x150.png">
+  <meta name="msapplication-square310x310logo" content="/site-tile-310x310.png">
+  <meta name="msapplication-TileColor" content="#0078d7">
+  <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/icon/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="/icon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="36x36" href="/icon/android-chrome-36x36.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon/android-chrome-48x48.png">
+  <link rel="icon" type="image/png" sizes="72x72" href="/icon/android-chrome-72x72.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon/android-chrome-96x96.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/icon/android-chrome-128x128.png">
+  <link rel="icon" type="image/png" sizes="144x144" href="/icon/android-chrome-144x144.png">
+  <link rel="icon" type="image/png" sizes="152x152" href="/icon/android-chrome-152x152.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/icon/android-chrome-256x256.png">
+  <link rel="icon" type="image/png" sizes="384x384" href="/icon/android-chrome-384x384.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon/android-chrome-512x512.png">
+  <link rel="icon" type="image/png" sizes="36x36" href="/icon/icon-36x36.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon/icon-48x48.png">
+  <link rel="icon" type="image/png" sizes="72x72" href="/icon/icon-72x72.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon/icon-96x96.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/icon/icon-128x128.png">
+  <link rel="icon" type="image/png" sizes="144x144" href="/icon/icon-144x144.png">
+  <link rel="icon" type="image/png" sizes="152x152" href="/icon/icon-152x152.png">
+  <link rel="icon" type="image/png" sizes="160x160" href="/icon/icon-160x160.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="196x196" href="/icon/icon-196x196.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/icon/icon-256x256.png">
+  <link rel="icon" type="image/png" sizes="384x384" href="/icon/icon-384x384.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon/icon-512x512.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icon/icon-16x16.png">
+  <link rel="icon" type="image/png" sizes="24x24" href="/icon/icon-24x24.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon/icon-32x32.png">
+  <link rel="manifest" href="/icon/manifest.json">
+
+
+  
+  <link rel="stylesheet" href="/app.css" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-24818216-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-24818216-3');
+  </script>
+
+</head>
+<body class="bg-grey-lighter">
+<nav class="flex items-center justify-between flex-wrap text-white bg-brand p-6">
+  
+  <div class="flex items-center flex-no-shrink mr-6">
+    <a href="/">
+      GW Advent Calendar
+    </a>
+    <div class="inline-block relative">
+      <select data-version-switcher class="block appearance-none w-full text-white hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+        <option value="2022" selected>2022</option>
+        <option value="2021" >2021</option>
+        <option value="2020" >2020</option>
+        <option value="2019" >2019</option>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pin-r pin-y">
+         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+      </div>
+    </div>
+
+  </div>
+
+  
+  <div class="block lg:hidden">
+    <button class="navbar-burger flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light text-white hover:border-white">
+      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+    </button>
+  </div>
+
+  
+  <div class="w-full block lg:flex lg:items-center lg:w-auto hidden" id="main-nav">
+    <div class="text-sm lg:flex-grow">
+        <a class="block mt-4 lg:inline-block lg:mt-0 hover:text-grey-dark mr-4" href="/whatisit">GWアドベントカレンダーとは</a>
+
+        <a class="block mt-4 lg:inline-block lg:mt-0 hover:text-grey-dark mr-4" href="/calendars/2022/create">カレンダーを作る</a>
+        <a class="block mt-4 lg:inline-block lg:mt-0 hover:text-grey-dark mr-4" href="/user/calendars">Myカレンダー</a>
+        <a class="block mt-4 lg:inline-block lg:mt-0 hover:text-grey-dark mr-4" href="/logout">ログアウト</a>
+<a href="https://twitter.com/shuyin02" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1445035039289348100/CM8Ome80_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+
+    </div>
+  </div>
+</nav>
+
+
+
+  <div class="container mx-auto px-4 mt-8">
+
+  
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+      <style>
+        .calendar {
+          font-family: 'Noto Sans', sans-serif;
+          width: 100%;
+          max-width: 100%;
+          margin-bottom: 20px;
+          table-layout: fixed;
+        }
+        .btn-square {
+          display: inline-block;
+          padding: 0.5em 1em;
+          text-decoration: none;
+          background: #668ad8;/*ボタン色*/
+          color: #FFF;
+          border-bottom: solid 4px #627295;
+          border-radius: 3px;
+        }
+        .btn-square:active {
+          /*ボタンを押したとき*/
+          -webkit-transform: translateY(4px);
+          transform: translateY(4px);/*下に動く*/
+          border-bottom: none;/*線を消す*/
+        }
+        .calendar>tbody>tr>th,.calendar tbody>tr>td{
+          border: 1px solid #ddd;
+          padding: 8px;
+          line-height: 1.42857143;
+          vertical-align: top;
+        }
+
+        h3 {
+                    margin-bottom: 30px;
+                }
+                th {
+                    height: 30px;
+                    text-align: center;
+                }
+                td {
+                    height: 100px;
+                }
+                th:nth-of-type(1) {
+                            color: red;
+                        }
+                           </style>
+
+      <article class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div style="display: flex; ">
+        <div style="  flex-grow: 1;max-width: calc(100% - 50px)" >
+          <h1>何の役にも立たないプロトタイプ</h1>
+        </div>
+        <div>
+  <a href="https://twitter.com/__7ENDO__" target="_blank" style="min-width:40px">
+<img src="https://pbs.twimg.com/profile_images/1502593861553917958/wSdKU6p4_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=40px;height:40px;transform: translate(0,+25%);"/>
+
+</a>
+
+        </div>
+      </div>
+          楽しいだけで意味などない実装カモン！<br/><br/>
+
+  
+
+  <div class="hidden lg:block">
+    <table class="calendar table table-bordered">
+        <tr>
+            <th>日</th>
+            <th>月</th>
+            <th>火</th>
+            <th>水</th>
+            <th>木</th>
+            <th>金</th>
+            <th>土</th>
+        </tr>
+        <tr>
+            <td><span style="color:gray">24</span></td>
+            <td><span style="color:gray">25</span></td>
+            <td><span style="color:gray">26</span></td>
+            <td><span style="color:gray">27</span></td>
+            <td><span style="color:gray">28</span></td>
+            <td>
+<span style="color:red">29
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-04-29/view" style="color:blue"> オンライン会議を無駄にドラマティックにする</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/__7ENDO__" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1502593861553917958/wSdKU6p4_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>__7ENDO__ <small>
+             </td>
+            <td>
+<span style="color:red">30
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-04-30/view" style="color:blue"> お前らのゴールデンウィークはゴールドじゃない</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/intent/user?user_id=59417367" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1182958704/9a09649f-0b54-4c57-8c91-60d76cbcabfa_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>菅原のびすけ <small>
+             </td>
+         </tr>
+                <tr>
+            <td>
+<span style="color:red">01
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-05-01/view" style="color:blue"> こっちゃんあっちで遊んでてー</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/nghrhtm1" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1500835743123800081/lVr_4nL__normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>hitomi <small>
+             </td>
+            <td>
+<span style="color:black">02
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-05-02/view" style="color:blue"> 次回のねこIoTLTネタを作る！(ねこじゃらしボット編)</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/Zakkiea" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/782410862/Profile1_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>野良ハック(ざっきー) <small>
+             </td>
+            <td>
+<span style="color:red">03
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-05-03/view" style="color:blue"> 発した言葉の中にGとWがあれば祝福してくれるブラウザアプリをブラウザのみで作ってみた</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/tkyko13" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1245228314362433538/lDw0OrAg_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>おの <small>
+             </td>
+            <td>
+<span style="color:red">04
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-05-04/view" style="color:blue"> 次回のねこIoTLTネタを作る！(ネコ目になってみた編)</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/Zakkiea" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/782410862/Profile1_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>野良ハック(ざっきー) <small>
+              </td>
+            <td>
+<span style="color:red">05
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-05-05/view" style="color:blue"> LEDを光らせてつくった、こわい警備員さん（笑）</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/NORI30363592" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1498253600258408456/VKILTtOS_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>Nori <small>
+             </td>
+            <td>
+<span style="color:black">06
+
+  <span style="float:right;color:blue">
+  <a href="/calendars/2022/122/posts/2022-05-06/edit">編集</a>
+  </span>
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  ゴールデンウィークに旬のゴールドキウイで画面もゴールドにする
+  </strong>
+  <br/>
+<a href="https://twitter.com/shuyin02" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1445035039289348100/CM8Ome80_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>Watanabe Tsubasa <small>
+            </td>
+            <td>
+<span style="color:red">07
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-05-07/view" style="color:blue"> ほぼ入力できないキーボードが無駄すぎた📱</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/okinakamasayos1" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1482829892366798848/G3FB0E20_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>おきなかがいこつ💀#100日後にコードを操る37歳 <small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+<span style="color:red">08
+
+</span>
+<p style="clear: right"><br/>
+
+
+  <strong>
+
+  <a href="/calendars/2022/122/posts/2022-05-08/view" style="color:blue"> お誕生日じゃない日をお祝いする</a>
+  </strong>
+  <br/>
+<a href="https://twitter.com/naokiuchid" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1439943125976313866/Vdw8doaS_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+   <small>内田 直樹 ＠たろうクリニック院長 <small>
+            </td>
+
+            <td><span style="color:gray">9</span></td>
+            <td><span style="color:gray">10</span></td>
+            <td><span style="color:gray">11</span></td>
+            <td><span style="color:gray">12</span></td>
+            <td><span style="color:gray">13</span></td>
+            <td><span style="color:gray">14</span></td>
+         </tr>
+    </table>
+</div>
+<div class="block lg:hidden">
+   <table class="w-full text-left table-collapse">
+    <tbody class="align-baseline">
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     04/29
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-04-29/view" style="color:blue"> オンライン会議を無駄にドラマティックにする</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/__7ENDO__" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1502593861553917958/wSdKU6p4_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>__7ENDO__ </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     04/30
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-04-30/view" style="color:blue"> お前らのゴールデンウィークはゴールドじゃない</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/intent/user?user_id=59417367" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1182958704/9a09649f-0b54-4c57-8c91-60d76cbcabfa_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>菅原のびすけ </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/01
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-05-01/view" style="color:blue"> こっちゃんあっちで遊んでてー</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/nghrhtm1" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1500835743123800081/lVr_4nL__normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>hitomi </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/02
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-05-02/view" style="color:blue"> 次回のねこIoTLTネタを作る！(ねこじゃらしボット編)</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/Zakkiea" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/782410862/Profile1_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>野良ハック(ざっきー) </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/03
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-05-03/view" style="color:blue"> 発した言葉の中にGとWがあれば祝福してくれるブラウザアプリをブラウザのみで作ってみた</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/tkyko13" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1245228314362433538/lDw0OrAg_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>おの </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/04
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-05-04/view" style="color:blue"> 次回のねこIoTLTネタを作る！(ネコ目になってみた編)</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/Zakkiea" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/782410862/Profile1_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>野良ハック(ざっきー) </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/05
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-05-05/view" style="color:blue"> LEDを光らせてつくった、こわい警備員さん（笑）</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/NORI30363592" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1498253600258408456/VKILTtOS_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>Nori </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/06
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      ゴールデンウィークに旬のゴールドキウイで画面もゴールドにする
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/shuyin02" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1445035039289348100/CM8Ome80_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>Watanabe Tsubasa </small>
+         <span style="float:right;color:blue">
+           <a href="/calendars/2022/122/posts/2022-05-06/edit">編集</a>
+         </span>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/07
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-05-07/view" style="color:blue"> ほぼ入力できないキーボードが無駄すぎた📱</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/okinakamasayos1" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1482829892366798848/G3FB0E20_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>おきなかがいこつ💀#100日後にコードを操る37歳 </small>
+
+     </div>
+   </td>
+</tr>
+<tr>
+   <td class="p-2 border-t border-grey-light text-purple-dark" style="width:40px">
+     05/08
+   </td>
+   <td class="p-2 border-t border-grey-light text-blue-dark">
+    <strong>
+      <a href="/calendars/2022/122/posts/2022-05-08/view" style="color:blue"> お誕生日じゃない日をお祝いする</a>
+    </strong>
+    <br/>
+    <div>
+<a href="https://twitter.com/naokiuchid" target="_blank" style="min-width:30px">
+<img src="https://pbs.twimg.com/profile_images/1439943125976313866/Vdw8doaS_normal.jpg" onerror="this.onerror=null;this.src='/images/icon-user-default.png';" style="border-radius: 50%;width=30px;height:30px;transform: translate(0,+25%);"/>
+
+</a>
+       <small>内田 直樹 ＠たろうクリニック院長 </small>
+
+     </div>
+   </td>
+</tr>
+        </tbody>
+     </table>
+</div>
+
+
+      <br/>
+      </article>
+  </div>
+
+  
+  <script type="text/javascript" src="/app.js"></script>
+
+  <footer class="w-full block  text-right pin-b">
+      <div class="text-sm lg:flex-grow">
+          <a class="block mt-4 lg:inline-block lg:mt-0 hover:text-grey-dark mr-4" href="/privacy">プライバシーポリシー</a>
+          <a class="block mt-4 lg:inline-block lg:mt-0 hover:text-grey-dark mr-4" href="/whatisit">お問い合わせ</a>
+      </div>
+  </footer>
+  <video id="webcam" width="320" height="240" muted autoplay playsinline></video>
+</body>
+</html>
