@@ -1,18 +1,29 @@
+'use strict';
 
 const axios = require('axios');
-const handleEvent = async (event) => {
+const qs = require('qs');
 
-let response;
-let itemNumber;
-itemNumber = Math.floor(Math.random*10)
+const BASE_URL = 'https://notify-api.me';
+const PATH = '/api/notify';
+const LINE_TOKEN = 'AuzHVZp1lGAdYhXhllsZeaLfHlRipO3EeIwCSzOTrGg';
 
-try {
-  const YoutubeAPIKey = 'AIzaSyBoL7z8UF-ZhYk0P9Br5EUcNZpMVz2rILE'
-  response = await axios.get('https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&maxResults=60&q=' + encodeURIComponent('宮城由香') + '&key=' + YoutubeAPIKey );
-  console.log(response.data.items.length);
-} catch (error) {
-  console.error(error);
-}
-}
+let config = {
+    baseURL: BASE_URL,
+    url: PATH,
+    method: 'post',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${LINE_TOKEN}`
+    },
+    data: qs.stringify({
+        message: '渡邊'
+    })
+};
 
-handleEvent()
+axios.request(config)
+    .then((res) => {
+        console.log(res.status);
+    })
+    .catch((error) => {
+        console.log(error);
+    });

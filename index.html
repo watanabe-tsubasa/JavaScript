@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScriptのFileAPIとcanvasで画像のプレビューと位置情報</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .image-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .hexagon {
+      width: 200px;
+      height: 200px;
+      background-color: #a52a2a;
+      margin: 10px;
+      position: relative;
+      overflow: hidden;
+      clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <input type="file" accept='image/*' onchange="previewImage(this);">
+  </form>
+  <p>
+    Preview:<br>
+    <canvas id="preview" style="max-width:200px;"></canvas>
+  </p>
+  <div id="image-gallery" class="image-container"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    function previewImage(obj) {
+      const fileReader = new FileReader();
+      fileReader.onload = function() {
+        const canvas = document.getElementById('preview');
+        const ctx = canvas.getContext('2d');
+        const image = new Image();
+        image.src = fileReader.result;
+        image.onload = function() {
+          canvas.width = image.width;
+          canvas.height = image.height;
+          ctx.drawImage(image, 0, 0);
+
+          const gallery = document.getElementById('image-gallery');
+          const hexagon = document.createElement('div');
+          hexagon.className = 'hexagon';
+          const hexagonImage = new Image();
+          hexagonImage.src = fileReader.result;
+          hexagonImage.style.width = '100%';
+          hexagonImage.style.height = '100%';
+          hexagon.appendChild(hexagonImage);
+
+          EXIF.getData(image, function() {
+            const lat = EXIF.getTag(this, 'GPSLatitude');
+            const latRef = EXIF.getTag(this, 'GPSLatitudeRef');
+            const lng = EXIF.getTag(this, 'GPSLongitude');
+            const lngRef = EXIF.getTag(this, 'GPSLongitudeRef');
+
+            if (lat && lng && latRef && lngRef) {
+              const convertedLat = convertDMSToDD(lat, latRef);
+              const convertedLng = convertDMSToDD(lng, lngRef);
+
+              const locationInfo = document.createElement('p');
+              locationInfo.innerHTML = 'Location: ' + convertedLat + ', ' + convertedLng;
+              hexagon.appendChild(locationInfo);
+
+              hexagon.addEventListener('click', function() {
+                const googleMapsUrl = 'https://www.google.com/maps?q=' + convertedLat + ',' + convertedLng;
+                window.open(googleMapsUrl);
+              });
+            }
+          });
+
+          gallery.appendChild(hexagon);
+        };
+      };
+      fileReader.readAsDataURL(obj.files[0]);
+    }
+
+    function convertDMSToDD(coordinate, reference) {
+      const degrees = coordinate[0];
+      const minutes = coordinate[1];
+      const seconds = coordinate[2];
+      const direction = reference.toUpperCase();
+
+      let dd = degrees + minutes / 60 + seconds / 3600;
+      if (direction === 'S' || direction === 'W') {
+        dd = -dd;
+      }
+
+      return dd.toFixed(6);
+    }
+  </script>
+</body>
+</html>

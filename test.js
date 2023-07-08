@@ -1,4 +1,8 @@
+const axios = require('axios');
 
-let itemNumber;
-itemNumber = Math.round(Math.random() * 50);
-console.log(itemNumber);
+const main = async () => {
+    const res = await axios.get('https://qiita.com/api/v2/tags/javascript');
+    console.log(res.data);
+}
+
+main();
