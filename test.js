@@ -1,21 +1,26 @@
-const data = {
-  timeStamp: '2023/09/24 11:05',
-  lineId: 'XXXXX',
-  content: [{index: '0', value: 'TRUE'}]
-};
+const MusicBrainzApi = require('musicbrainz-api').MusicBrainzApi;
 
-baseURL = 'https://script.google.com/macros/s/AKfycbySrNjZ-_73Vbw417tLF7ANN_wQXnJHux1v86t0EP01mVcOGtIVhRcBobLhR-PnNCur5w/exec'
+const config = {
+  // MusicBrainz bot account username & password (optional)
+  // botAccount: { 
+  //   username: 'myUserName_bot',
+  //   password: 'myPassword' 
+  // },
+  
+  // API base URL, default: 'https://musicbrainz.org' (optional)
+  baseUrl: 'https://musicbrainz.org',
 
-const main = async () => {
-  const res = await fetch(baseURL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-  const json = await res.json();
-  console.log(json);
+  appName: 'my-app',
+  appVersion: '0.1.0',
+
+  // Optional, default: no proxy server
+  // proxy: {
+  //   host: 'localhost',
+  //   port: 8888
+  //  },
+
+  // Your e-mail address, required for submitting ISRCs
+  appMail: 't.watanabe423@gmail.com'
 }
 
-main();
+const mbApi = new MusicbrainzApi(config);
